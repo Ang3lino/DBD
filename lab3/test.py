@@ -1,0 +1,3 @@
+
+
+styles = ['moderno', 'classico']
