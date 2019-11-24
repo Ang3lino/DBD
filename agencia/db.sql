@@ -3,6 +3,7 @@ CREATE TABLE persona (
     id VARCHAR2(32) NOT NULL,
     email VARCHAR2(64),
     nombre VARCHAR2(32),
+    edad NUMBER,
     primer_apellido VARCHAR2(32),
     segundo_apellido VARCHAR2(32),
     direccion VARCHAR2(128),
@@ -12,11 +13,11 @@ CREATE TABLE persona (
 );
 
 CREATE TABLE guia (
-    dias_laborados NUMBER, 
-    desde DATE,
-    salario_mensual NUMBER,
+    desde DATE DEFAULT SYSDATE,
+    salario_mensual NUMBER DEFAULT 500,
     persona_id VARCHAR2(32),
     activo CHAR(1) DEFAULT '0',
+    aumento_porcentaje NUMBER DEFAULT 0,
     CONSTRAINT guia_pk PRIMARY KEY (persona_id),
     CONSTRAINT guia_fk FOREIGN KEY (persona_id) 
         REFERENCES persona(id) ON DELETE CASCADE 
@@ -70,29 +71,6 @@ CREATE TABLE cliente (
     CONSTRAINT cliente_fk FOREIGN KEY(id)
         REFERENCES persona(id) ON DELETE CASCADE
 );
-
-CREATE TABLE reembolso (
-    cliente_id VARCHAR2(16) NOT NULL,
-    i NUMBER,
-    dia DATE DEFAULT SYSDATE,
-    motivo VARCHAR2(256),
-    nombre_viaje VARCHAR2(32),
-    cant_reembolsada NUMBER,
-    CONSTRAINT reembolso_pk PRIMARY KEY(cliente_id, i),
-    CONSTRAINT reembolso_fk FOREIGN KEY(cliente_id) 
-        REFERENCES cliente(id) ON DELETE CASCADE
-);
-
-CREATE OR REPLACE TRIGGER reembolso_i_autoincrement 
-    BEFORE INSERT ON reembolso 
-    FOR EACH ROW 
-BEGIN 
-    SELECT MAX(i) + 1 INTO :new.i 
-        FROM reembolso r, cliente c
-        WHERE :new.cliente_id = c.id;
-END; 
-/
-
 
 CREATE TABLE viaje (
     fecha_inicio DATE NOT NULL,
@@ -152,7 +130,6 @@ CREATE TABLE autobus (
     viaje_id DATE NOT NULL,
     wc NUMBER,
     cantidad_asientos NUMBER,
-    asientos_ocupados NUMBER,
     CONSTRAINT autobus_pk PRIMARY KEY(matricula),
     CONSTRAINT autobus_fk FOREIGN KEY(viaje_id)
         REFERENCES viaje(fecha_inicio) ON DELETE CASCADE
