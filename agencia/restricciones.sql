@@ -24,11 +24,6 @@ ALTER TABLE autobus
     ADD CONSTRAINT chk_autobus_wc 
     CHECK (wc BETWEEN 0 AND 2);
 
--- el punto de reunion b de la relacion itinerario debe ser posterior al punto a
-ALTER TABLE itinerario 
-    ADD CONSTRAINT chk_itinerario_fecha_hora
-    CHECK (a_fecha <= b_fecha AND a_hora <= b_hora);
-
 -- No puede haber mas lugares reservados del total de plazas
 ALTER TABLE viaje 
     ADD CONSTRAINT chk_viaje_reservados 

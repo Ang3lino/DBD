@@ -1,4 +1,3 @@
-
 CREATE TABLE persona (
     id VARCHAR2(32) NOT NULL,
     email VARCHAR2(64),
@@ -16,7 +15,7 @@ CREATE TABLE guia (
     desde DATE DEFAULT SYSDATE,
     salario_mensual NUMBER DEFAULT 500,
     persona_id VARCHAR2(32),
-    activo CHAR(1) DEFAULT '0',
+    activo CHAR(1) DEFAULT '1',
     aumento_porcentaje NUMBER DEFAULT 0,
     CONSTRAINT guia_pk PRIMARY KEY (persona_id),
     CONSTRAINT guia_fk FOREIGN KEY (persona_id) 
@@ -42,24 +41,16 @@ CREATE TABLE estudiante (
 
 CREATE TABLE materia (
     clave VARCHAR2(8) NOT NULL,
-    calificacion NUMBER NOT NULL,
-    fecha_fin DATE NOT NULL,
-    nombre VARCHAR2(32) NOT NULL,
-    forma_eval VARCHAR2(16) NOT NULL,
-    estudiante_id VARCHAR2(32) NOT NULL,
-    CONSTRAINT materia_pk PRIMARY KEY(clave),
-    CONSTRAINT materia_fk 
-        FOREIGN KEY (estudiante_id) 
-        REFERENCES estudiante(persona_id)
-        ON DELETE CASCADE
+    nombre VARCHAR2(64) NOT NULL,
+    CONSTRAINT materia_pk PRIMARY KEY(clave)
 );
 
-CREATE TABLE guia_estudiante (
-    id VARCHAR2(16) NOT NULL,
-    porcentaje_extra NUMBER,
-    CONSTRAINT guia_estudiante_pk PRIMARY KEY (id),
-    CONSTRAINT guia_estudiante_fk FOREIGN KEY(id)
-        REFERENCES persona(id) ON DELETE CASCADE
+CREATE TABLE estudiante_materia (
+    estudiante_id VARCHAR2(32) NOT NULL,
+    materia_id VARCHAR2(8) NOT NULL,
+    calificacion NUMBER NOT NULL,
+    fecha_fin DATE NOT NULL,
+    forma_eval VARCHAR2(16) NOT NULL
 );
 
 CREATE TABLE cliente (
@@ -114,12 +105,12 @@ CREATE TABLE itinerario (
     viaje_id DATE NOT NULL,
     a_direccion VARCHAR(64) NOT NULL,
     a_fecha DATE NOT NULL,
-    a_hora DATE NOT NULL,
-    b_direccion VARCHAR(64) NOT NULL,
-    b_fecha DATE NOT NULL,
-    b_hora DATE NOT NULL,
+    a_hora VARCHAR2(8) DEFAULT '09:00',
+    b_direccion VARCHAR(64) ,
+    b_fecha DATE ,
+    b_hora VARCHAR2(8),
     CONSTRAINT itinerario_pk 
-        PRIMARY KEY(a_direccion, a_fecha, a_hora),
+        PRIMARY KEY(viaje_id, a_direccion, a_fecha, a_hora),
     CONSTRAINT itinerario_fk
         FOREIGN KEY(viaje_id)
         REFERENCES viaje(fecha_inicio) ON DELETE CASCADE
@@ -127,12 +118,19 @@ CREATE TABLE itinerario (
 
 CREATE TABLE autobus (
     matricula VARCHAR2(16) NOT NULL,
-    viaje_id DATE NOT NULL,
     wc NUMBER,
     cantidad_asientos NUMBER,
-    CONSTRAINT autobus_pk PRIMARY KEY(matricula),
-    CONSTRAINT autobus_fk FOREIGN KEY(viaje_id)
-        REFERENCES viaje(fecha_inicio) ON DELETE CASCADE
+    CONSTRAINT autobus_pk PRIMARY KEY(matricula)
+);
+
+CREATE TABLE viaje_autobus (
+    matricula VARCHAR2(16) NOT NULL,
+    viaje_id DATE NOT NULL,
+    CONSTRAINT viaje_autobus_pk PRIMARY KEY(matricula, viaje_id),
+    CONSTRAINT viaje_autobus_viaje_fk FOREIGN KEY(viaje_id)
+        REFERENCES viaje(fecha_inicio) ON DELETE CASCADE,
+    CONSTRAINT viaje_autobus_autobus_fk FOREIGN KEY(matricula)
+        REFERENCES autobus(matricula) ON DELETE CASCADE
 );
 
 CREATE TABLE hospedaje (
