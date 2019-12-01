@@ -15,8 +15,8 @@ ALTER TABLE promocion ADD CONSTRAINT chk_promocion_fechas_descuento
     CHECK (desde <= hasta AND desc_porcentaje BETWEEN 0 AND 1);
 
 -- la calificacion posible esta entre 0 y 10
-ALTER TABLE materia 
-    ADD CONSTRAINT chk_materia_calificacion 
+ALTER TABLE estudiante_materia 
+    ADD CONSTRAINT chk_es_mat_cal 
     CHECK (calificacion BETWEEN 0 AND 10);
 
 -- a lo mas habria dos banos en un autobus

@@ -10,40 +10,51 @@ BEGIN
 END add_guide_language;
 /
 
+-- BEGIN
+--     -- v_guia_id VARCHAR2(32) := '2013631540';
+--     add_guide_language('2013631540', 'ingles');
+--     add_guide_language('2013631540', 'espanol');
+--     add_guide_language('2013631540', 'frances');
+-- END;
+
+-- SELECT * FROM guia;
+-- SELECT gd.idioma 
+--     FROM guia_idioma gd 
+--         JOIN guia g ON g.persona_id = gd.guia_id 
+--     WHERE g.persona_id = '2013631540' ;
+
+CREATE OR REPLACE PROCEDURE insert_compra_viaje (
+    p_viaje_id IN compra_viaje.viaje_id%TYPE,
+    p_guia_id IN compra_viaje.guia_id%TYPE,
+    p_cliente_id IN compra_viaje.cliente_id%TYPE,
+    p_cant_pagada IN compra_viaje.cant_pagada%TYPE
+) AS
 BEGIN
-    -- v_guia_id VARCHAR2(32) := '2013631540';
-    add_guide_language('2013631540', 'ingles');
-    add_guide_language('2013631540', 'espanol');
-    add_guide_language('2013631540', 'frances');
-END;
+    INSERT INTO compra_viaje (
+    viaje_id , guia_id , cliente_id , cant_pagada 
+    ) VALUES (
+        p_viaje_id , p_guia_id , p_cliente_id , p_cant_pagada );
+    COMMIT;
+END insert_compra_viaje;
+/
 
-SELECT * FROM guia;
-SELECT gd.idioma 
-    FROM guia_idioma gd 
-        JOIN guia g ON g.persona_id = gd.guia_id 
-    WHERE g.persona_id = '2013631540' ;
+DROP TABLE persona cascade constraints;
+DROP TABLE guia cascade constraints;
+DROP TABLE guia_idioma cascade constraints;
+DROP TABLE estudiante cascade constraints;
+DROP TABLE materia cascade constraints;
+DROP TABLE estudiante_materia cascade constraints;
+DROP TABLE cliente cascade constraints;
+DROP TABLE viaje cascade constraints;
+DROP TABLE promocion cascade constraints;
+DROP TABLE compra_viaje cascade constraints;
+DROP TABLE itinerario cascade constraints;
+DROP TABLE autobus cascade constraints;
+DROP TABLE viaje_autobus cascade constraints;
+DROP TABLE hospedaje cascade constraints;
+DROP TABLE habitacion_reservada cascade constraints;
 
-
-CREATE TABLE persona (
-    id VARCHAR2(32) NOT NULL,
-    email VARCHAR2(64),
-    nombre VARCHAR2(32),
-    edad NUMBER,
-    primer_apellido VARCHAR2(32),
-    segundo_apellido VARCHAR2(32),
-    direccion VARCHAR2(128),
-    iban VARCHAR2(32),
-    telefono NUMBER,
-    PRIMARY KEY (id) 
-);
-
-CREATE TABLE guia (
-    desde DATE DEFAULT SYSDATE,
-    salario_mensual NUMBER DEFAULT 500,
-    persona_id VARCHAR2(32),
-    activo CHAR(1) DEFAULT '1',
-    aumento_porcentaje NUMBER DEFAULT 0,
-    CONSTRAINT guia_pk PRIMARY KEY (persona_id),
-    CONSTRAINT guia_fk FOREIGN KEY (persona_id) 
-        REFERENCES persona(id) ON DELETE CASCADE 
-);
+-- db.sql
+-- restricciones.sql
+-- vistas.sql
+-- triggers.sql 

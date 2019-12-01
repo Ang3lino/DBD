@@ -2,7 +2,7 @@
 -- Vistas
 -- obtener el fragmento minitermino mixto de los estudiantes con su 
 -- clave, nombre y nota media
-CREATE VIEW v_estudiante_nota_media AS 
+CREATE OR REPLACE VIEW v_estudiante_nota_media AS 
     SELECT 
         p.id, 
         p.nombre, p.primer_apellido, p.segundo_apellido, 
@@ -13,7 +13,7 @@ CREATE VIEW v_estudiante_nota_media AS
     GROUP BY p.id, p.nombre, p.primer_apellido, p.segundo_apellido;
 
 -- visualizar la cantidad invertida por los clientes en el viaje con su nombre
-CREATE VIEW v_cliente_inversion AS 
+CREATE OR REPLACE VIEW v_cliente_inversion AS 
     SELECT 
         p.id, c.nickname, SUM(cv.cant_pagada) AS total
     FROM persona p 
@@ -23,13 +23,13 @@ CREATE VIEW v_cliente_inversion AS
     ORDER BY total DESC;    
 
 -- clientes que no son estudiantes
-CREATE VIEW v_cliente_no_estudiante AS 
+CREATE OR REPLACE VIEW v_cliente_no_estudiante AS 
     SELECT p.id, p.nombre FROM persona p 
         JOIN cliente c ON p.id = c.id  
     AND NOT p.id IN (SELECT persona_id FROM estudiante);
 
 -- mostrar todas las habitaciones reservadas para el dia de hoy
-CREATE VIEW v_habitaciones_hoy AS 
+CREATE OR REPLACE VIEW v_habitaciones_hoy AS 
     SELECT 
         h.ubicacion, v.nombre, hr.planta, hr.numero, hr.cant_personas 
     FROM habitacion_reservada hr 

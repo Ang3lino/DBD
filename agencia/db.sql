@@ -1,3 +1,4 @@
+
 CREATE TABLE persona (
     id VARCHAR2(32) NOT NULL,
     email VARCHAR2(64),

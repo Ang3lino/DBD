@@ -19,11 +19,12 @@ CREATE TABLE alumno (
   CONSTRAINT c_email UNIQUE  (email)
 ) ;
 
-CREATE INDEX fk_alumno_Login1_idx ON alumno (Login_idLogin);
+-- CREATE INDEX fk_alumno_Login1_idx ON alumno (Login_idLogin);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO alumno  SELECT 2013631010,'Sabrina','Perez','Araiza','Sabrina17222@gmail.com','cfvlq',173 FROM dual UNION ALL  SELECT 2013631052,'Julieta','Ruiz','Miroslava','Julieta16526@gmail.com','rpmax',166 FROM dual UNION ALL  SELECT 2013631133,'Angel','Varela','Sanchez','Angel7414@gmail.com','lhphf',75 FROM dual UNION ALL  SELECT 2013631139,'Gladys','Contreras','Loyola','Gladys3829@gmail.com','ojhfd',39 FROM dual UNION ALL  SELECT 2013631226,'Angel','Obregon','Loyola','Angel15714@gmail.com','lkqnd',158 FROM dual UNION ALL  SELECT 2013631372,'Jose','Molina','Bodet','Jose813@gmail.com','rgnbb',9 FROM dual UNION ALL  SELECT 2013631439,'Angel','Ruiz','Mesa','Angel2714@gmail.com','ffddv',28 FROM dual UNION ALL  SELECT 2013631444,'David','Vazques','Contreras','David1824@gmail.com','daqbx',183 FROM dual UNION ALL  SELECT 2013631458,'Alberto','Molina','Contreras','Alberto228@gmail.com','arteo',23 FROM dual UNION ALL  SELECT 2013631497,'Bryan','Oroszco','Ayala','Bryan5017@gmail.com','igulv',51 FROM dual UNION ALL  SELECT 2013631538,'Hugo','Lopez','Mesa','Hugo6716@gmail.com','eernj',68 FROM dual;
+-- INSERT INTO alumno  SELECT 2013631010,'Sabrina','Perez','Araiza','Sabrina17222@gmail.com','cfvlq',173 FROM dual UNION ALL  SELECT 2013631052,'Julieta','Ruiz','Miroslava','Julieta16526@gmail.com','rpmax',166 FROM dual UNION ALL  SELECT 2013631133,'Angel','Varela','Sanchez','Angel7414@gmail.com','lhphf',75 FROM dual UNION ALL  SELECT 2013631139,'Gladys','Contreras','Loyola','Gladys3829@gmail.com','ojhfd',39 FROM dual UNION ALL  SELECT 2013631226,'Angel','Obregon','Loyola','Angel15714@gmail.com','lkqnd',158 FROM dual UNION ALL  SELECT 2013631372,'Jose','Molina','Bodet','Jose813@gmail.com','rgnbb',9 FROM dual UNION ALL  SELECT 2013631439,'Angel','Ruiz','Mesa','Angel2714@gmail.com','ffddv',28 FROM dual UNION ALL  SELECT 2013631444,'David','Vazques','Contreras','David1824@gmail.com','daqbx',183 FROM dual UNION ALL  SELECT 2013631458,'Alberto','Molina','Contreras','Alberto228@gmail.com','arteo',23 FROM dual UNION ALL  SELECT 2013631497,'Bryan','Oroszco','Ayala','Bryan5017@gmail.com','igulv',51 FROM dual UNION ALL  SELECT 2013631538,'Hugo','Lopez','Mesa','Hugo6716@gmail.com','eernj',68 FROM dual;
 
+SELECT count(*) FROM alumno;
 -- INSERT INTO alumno 
 
 INSERT INTO alumno  SELECT 2013631540,'Miguel','Perez','Gumez','Miguel1011@gmail.com','qfipj',11 FROM dual UNION ALL  SELECT 2013631576,'Ruben','Ruiz','Ayala','Ruben75@gmail.com','jwxki',8 FROM dual UNION ALL  SELECT 2013631642,'Raymundo','Oroszco','Ayala','Raymundo557@gmail.com','skujh',56 FROM dual UNION ALL  SELECT 2013631735,'Julieta','Carranza','Montes','Julieta18326@gmail.com','cxyig',184 FROM dual UNION ALL  SELECT 2013631753,'Erik','Robles','Ayala','Erik499@gmail.com','bsdsx',50 FROM dual UNION ALL  SELECT 2013631759,'Ruben','Oroszco','Ayala','Ruben735@gmail.com','qqjeg',74 FROM dual UNION ALL  SELECT 2013631771,'Raul','Mota','Esparza','Raul1312@gmail.com','aapuj',132 FROM dual UNION ALL  SELECT 2013631855,'Erik','Ayala','Ayala','Erik1459@gmail.com','durif',146 FROM dual UNION ALL  SELECT 2013631883,'Julieta','Rojero','Araiza','Julieta18426@gmail.com','uryrq',185 FROM dual UNION ALL  SELECT 2013631901,'Bryan','Oroszco','Mesa','Bryan16217@gmail.com','skwlo',163 FROM dual UNION ALL  SELECT 2013631931,'Itzel','Contreras','Loyola','Itzel15527@gmail.com','bohbd',156 FROM dual UNION ALL  SELECT 2013631936,'Gladys','Lopez','Bodet','Gladys2529@gmail.com','srtfu',26 FROM dual UNION ALL  SELECT 2013631937,'Sabrina','Mota','Esparza','Sabrina19222@gmail.com','sbffe',193 FROM dual UNION ALL  SELECT 2013631938,'Andres','Robles','Ayala','Andres11415@gmail.com','fvcen',115 FROM dual UNION ALL  SELECT 2013631950,'Erik','Rojero','Miroslava','Erik879@gmail.com','ngilj',88 FROM dual;
@@ -101,9 +102,9 @@ SELECT id, 'm47r1cul4', 'Informatica'
    ORDER BY id
    FETCH FIRST 3 ROWS ONLY;
 
-update guia 
-   set aumento_porcentaje = aumento_porcentaje + 0.1
-   WHERE persona_id in ('2013631540', '2013631576', '2013631642');
+-- update guia 
+--    set aumento_porcentaje = aumento_porcentaje + 0.1
+--    WHERE persona_id in ('2013631540', '2013631576', '2013631642');
 
 INSERT INTO 
 guia (
@@ -113,11 +114,11 @@ guia (
 
 SELECT COUNT(*) FROM persona;
 
-INSERT INTO 
-cliente (
-  persona_id 
-) SELECT id FROM persona 
-   FETCH FIRST 10 ROWS ONLY;
+-- INSERT INTO 
+-- cliente (
+--   persona_id 
+-- ) SELECT id FROM persona 
+--    FETCH FIRST 10 ROWS ONLY;
 
 INSERT INTO cliente (
    id ,
@@ -288,6 +289,7 @@ INSERT INTO itinerario (
 )  SELECT '09-12-2019', 
     'Aeropuerto de Marrakech', '09-12-2019', '14:28' FROM dual;
 
+-- local
 INSERT INTO compra_viaje (
   viaje_id , guia_id , cliente_id , cant_pagada 
 ) VALUES (
@@ -320,105 +322,21 @@ INSERT INTO compra_viaje (
 
 commit;
 
--- CREATE TABLE compra_viaje (
---   viaje_id DATE NOT NULL, 
---   guia_id VARCHAR2(32) NOT NULL,
---   cliente_id VARCHAR2(32) NOT NULL,
---   cant_pagada NUMBER,
---   fecha DATE DEFAULT SYSDATE,
---   descuento_neto NUMBER DEFAULT 0,
---   CONSTRAINT compra_viaje_pk 
---     PRIMARY KEY (viaje_id, guia_id, cliente_id), 
---   CONSTRAINT cv_viaje_fk FOREIGN KEY (viaje_id)
---     REFERENCES viaje(fecha_inicio) ON DELETE CASCADE,
---   CONSTRAINT cv_guia_fk FOREIGN KEY (guia_id)
---     REFERENCES guia(persona_id) ON DELETE CASCADE,
---   CONSTRAINT cv_cliente_fk FOREIGN KEY (cliente_id)
---     REFERENCES cliente(id) ON DELETE CASCADE
--- );
 
+-- Here we go
+BEGIN
+  insert_compra_viaje('09-12-2019', '2013631540', '2013631540', 70);
+  insert_compra_viaje('09-12-2019', '2013631540', '2013631735', 80);
+  insert_compra_viaje('09-12-2019', '2013631540', '2013631576', 90);
+  insert_compra_viaje('09-12-2019', '2013631540', '2013631642', 100);
+  insert_compra_viaje('09-12-2019', '2013631540', '2013631753', 110);
+  insert_compra_viaje('09-12-2019', '2013631540', '2013631759', 110);
+END;
 
--- ALTER TABLE itinerario MODIFY a_hora VARCHAR2(8);
--- ALTER TABLE itinerario MODIFY b_hora VARCHAR2(8);
-
--- ALTER TABLE itinerario DROP COLUMN b_direccion;
--- ALTER TABLE itinerario DROP COLUMN b_fecha; 
--- ALTER TABLE itinerario DROP COLUMN b_hora;
-
--- ALTER TABLE itinerario ADD b_direccion VARCHAR2(64);
--- ALTER TABLE itinerario ADD b_fecha DATE; 
--- ALTER TABLE itinerario ADD b_hora DATE;
-
--- ALTER TABLE itinerario DROP COLUMN a_hora;
--- ALTER TABLE itinerario ADD a_hora VARCHAR2(8);
-
--- CREATE TABLE itinerario (
---   viaje_id DATE NOT NULL,
---   a_direccion VARCHAR(64) NOT NULL,
---   a_fecha DATE NOT NULL,
---   a_hora DATE NOT NULL,
---   b_direccion VARCHAR(64) NOT NULL,
---   b_fecha DATE NOT NULL,
---   b_hora DATE NOT NULL,
---   CONSTRAINT itinerario_pk 
---     PRIMARY KEY(a_direccion, a_fecha, a_hora),
---   CONSTRAINT itinerario_fk
---     FOREIGN KEY(viaje_id)
---     REFERENCES viaje(fecha_inicio) ON DELETE CASCADE
--- );
-
--- CREATE TABLE viaje_autobus (
---   matricula VARCHAR2(16) NOT NULL,
---   viaje_id DATE NOT NULL,
---   CONSTRAINT viaje_autobus_pk PRIMARY KEY(matricula, viaje_id),
---   CONSTRAINT viaje_autobus_viaje_fk FOREIGN KEY(viaje_id)
---     REFERENCES viaje(fecha_inicio) ON DELETE CASCADE,
---   CONSTRAINT viaje_autobus_autobus_fk FOREIGN KEY(matricula)
---     REFERENCES autobus(matricula) ON DELETE CASCADE
--- );
-
--- CREATE TABLE autobus (
---   matricula VARCHAR2(16) NOT NULL,
---   wc NUMBER,
---   cantidad_asientos NUMBER,
---   CONSTRAINT autobus_pk PRIMARY KEY(matricula)
--- );
-
--- CREATE TABLE viaje_autobus (
---   matricula VARCHAR2(16) NOT NULL,
---   viaje_id DATE NOT NULL,
---   CONSTRAINT viaje_autobus_pk PRIMARY KEY(matricula, viaje_id),
---   CONSTRAINT viaje_autobus_viaje_fk FOREIGN KEY(viaje_id)
---     REFERENCES viaje(fecha_inicio) ON DELETE CASCADE,
---   CONSTRAINT viaje_autobus_autobus_fk FOREIGN KEY(matricula)
---     REFERENCES autobus(matricula) ON DELETE CASCADE
--- );
-
-
--- INSERT INTO viaje (
---   fecha_inicio DATE NOT NULL,
---   descripcion VARCHAR2(256),
---   nombre VARCHAR2(64),
---   precio NUMBER,
---   reservados NUMBER DEFAULT 0,
---   lugares NUMBER NOT NULL,
---   CONSTRAINT viaje_pk PRIMARY KEY(fecha_inicio)
--- );
-
-
--- INSERT INTO alumno 
---  SELECT 2013632088,'Itzel','Ruiz','Montes','Itzel3927@gmail.com','rcrwf',40 FROM dual UNION ALL  
---  SELECT 2013632096,'Pedro','Ayala','Marquez','Pedro8318@gmail.com','ijhjm',84 FROM dual UNION ALL  
---  SELECT 2013632141,'Alexis','Mota','Contreras','Alexis5410@gmail.com','djadv',55 FROM dual UNION ALL  SELECT 2013632263,'Andrea','Obregon','Centeno','Andrea10421@gmail.com','wxkrd',105 FROM dual UNION ALL  SELECT 2013632274,'Erik','Varela','Miroslava','Erik689@gmail.com','nrurn',69 FROM dual UNION ALL  SELECT 2013632311,'Ruben','Ruiz','Ayala','Ruben1035@gmail.com','ijmrv',104 FROM dual UNION ALL  SELECT 2013632352,'Josue','Carranza','Araiza','Josue1073@gmail.com','abgyp',108 FROM dual UNION ALL  SELECT 2013632377,'Raymundo','Ayala','Ayala','Raymundo337@gmail.com','dkljs',34 FROM dual UNION ALL  SELECT 2013632418,'Raymundo','Armenta','Sanchez','Raymundo917@gmail.com','nhxuu',92 FROM dual UNION ALL  SELECT 2013632447,'Alexis','Varela','Esparza','Alexis2610@gmail.com','lwcfg',27 FROM dual UNION ALL  SELECT 2013632456,'Luis','Perez','Centeno','Luis1406@gmail.com','xkseu',141 FROM dual UNION ALL  SELECT 2013632460,'Ruben','Mota','Araiza','Ruben1645@gmail.com','gnovs',165 FROM dual UNION ALL  SELECT 2013632470,'David','Molina','Miroslava','David1594@gmail.com','pghrq',160 FROM dual UNION ALL  SELECT 2013632471,'Alexis','Carranza','Centeno','Alexis18110@gmail.com','gbtlp',182 FROM dual UNION ALL  SELECT 2013632488,'Luis','Perez','Esparza','Luis466@gmail.com','bkowf',47 FROM dual UNION ALL  SELECT 2013632530,'Andrea','Varela','Mesa','Andrea6321@gmail.com','khfsm',64 FROM dual UNION ALL  SELECT 2013632532,'Hugo','Obregon','Loyola','Hugo7016@gmail.com','xoujf',71 FROM dual;
-
--- cliente (
---   id VARCHAR2(16) NOT NULL,
---   nickname VARCHAR2(32),
---   contrasena VARCHAR2(64),
---   desde DATE,
---   CONSTRAINT cliente_pk PRIMARY KEY (id),
---   CONSTRAINT cliente_fk FOREIGN KEY(id)
---     REFERENCES persona(id) ON DELETE CASCADE
--- );
-
--- SELECT COUNT(*) FROM cliente;
+-- BEGIN
+--    insert_compra_viaje('09/12/2019', '2013631010', '2013631052', 80);
+--    insert_compra_viaje('09-12-2019', '2013631010', '2013631133', 90);
+--    insert_compra_viaje('09-12-2019', '2013631010', '2013631139', 100);
+--    insert_compra_viaje('09-12-2019', '2013631010', '2013631226', 90);
+--    insert_compra_viaje('09-12-2019', '2013631010', '2013631372', 80);
+-- END;
