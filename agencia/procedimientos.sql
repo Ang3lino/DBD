@@ -4,8 +4,7 @@ CREATE OR REPLACE PROCEDURE add_guide_language (
     v_language IN guia_idioma.idioma%TYPE
 ) AS
 BEGIN
-    INSERT INTO guia_idioma(guia_id, idioma) 
-        VALUES (v_guide_id, v_language);
+    INSERT INTO guia_idioma(guia_id, idioma) VALUES (v_guide_id, v_language);
     COMMIT;
 END add_guide_language;
 /
@@ -31,28 +30,41 @@ CREATE OR REPLACE PROCEDURE insert_compra_viaje (
 ) AS
 BEGIN
     INSERT INTO compra_viaje (
-    viaje_id , guia_id , cliente_id , cant_pagada 
+        viaje_id , guia_id , cliente_id , cant_pagada 
     ) VALUES (
         p_viaje_id , p_guia_id , p_cliente_id , p_cant_pagada );
-    COMMIT;
 END insert_compra_viaje;
 /
 
-DROP TABLE persona cascade constraints;
-DROP TABLE guia cascade constraints;
-DROP TABLE guia_idioma cascade constraints;
-DROP TABLE estudiante cascade constraints;
-DROP TABLE materia cascade constraints;
-DROP TABLE estudiante_materia cascade constraints;
-DROP TABLE cliente cascade constraints;
-DROP TABLE viaje cascade constraints;
-DROP TABLE promocion cascade constraints;
-DROP TABLE compra_viaje cascade constraints;
-DROP TABLE itinerario cascade constraints;
-DROP TABLE autobus cascade constraints;
-DROP TABLE viaje_autobus cascade constraints;
-DROP TABLE hospedaje cascade constraints;
-DROP TABLE habitacion_reservada cascade constraints;
+CREATE OR REPLACE PROCEDURE insert_estudiante_materia(
+    p_materia_id IN estudiante_materia.materia_id%TYPE,
+    p_fecha_fin IN estudiante_materia.fecha_fin%TYPE, 
+    p_forma_eval IN estudiante_materia.forma_eval%TYPE, 
+    p_calificacion IN estudiante_materia.calificacion%TYPE, 
+    p_estudiante_id IN estudiante_materia.estudiante_id%TYPE 
+) AS 
+BEGIN 
+    INSERT INTO estudiante_materia (
+        materia_id, fecha_fin, forma_eval, 
+        calificacion, estudiante_id 
+    ) VALUES (
+        p_materia_id, 
+        p_fecha_fin, 
+        p_forma_eval, 
+        p_calificacion, 
+        p_estudiante_id 
+    );
+END;
+/
+
+CREATE OR REPLACE PROCEDURE insert_materia (
+    p_clave IN materia.clave%TYPE,
+    p_nombre IN materia.nombre%TYPE
+) AS 
+BEGIN 
+    INSERT INTO materia ( clave , nombre ) VALUES (p_clave, p_nombre);
+END insert_materia;
+/
 
 -- db.sql
 -- restricciones.sql

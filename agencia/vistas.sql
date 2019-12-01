@@ -28,11 +28,3 @@ CREATE OR REPLACE VIEW v_cliente_no_estudiante AS
         JOIN cliente c ON p.id = c.id  
     AND NOT p.id IN (SELECT persona_id FROM estudiante);
 
--- mostrar todas las habitaciones reservadas para el dia de hoy
-CREATE OR REPLACE VIEW v_habitaciones_hoy AS 
-    SELECT 
-        h.ubicacion, v.nombre, hr.planta, hr.numero, hr.cant_personas 
-    FROM habitacion_reservada hr 
-        JOIN hospedaje h ON hr.ubicacion = h.ubicacion AND hr.fecha = h.fecha
-        JOIN viaje v ON h.viaje_id = v.fecha_inicio 
-    WHERE v.fecha_inicio = SYSDATE;

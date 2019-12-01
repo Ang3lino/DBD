@@ -51,7 +51,8 @@ CREATE TABLE estudiante_materia (
     materia_id VARCHAR2(8) NOT NULL,
     calificacion NUMBER NOT NULL,
     fecha_fin DATE NOT NULL,
-    forma_eval VARCHAR2(16) NOT NULL
+    forma_eval VARCHAR2(16) NOT NULL,
+    CONSTRAINT estudiante_materia_pk PRIMARY KEY(estudiante_id, materia_id)
 );
 
 CREATE TABLE cliente (
@@ -104,10 +105,10 @@ CREATE TABLE compra_viaje (
 
 CREATE TABLE itinerario (
     viaje_id DATE NOT NULL,
-    a_direccion VARCHAR(64) NOT NULL,
+    a_direccion VARCHAR(256) NOT NULL,
     a_fecha DATE NOT NULL,
     a_hora VARCHAR2(8) DEFAULT '09:00',
-    b_direccion VARCHAR(64) ,
+    b_direccion VARCHAR(256) ,
     b_fecha DATE ,
     b_hora VARCHAR2(8),
     CONSTRAINT itinerario_pk 
@@ -135,27 +136,20 @@ CREATE TABLE viaje_autobus (
 );
 
 CREATE TABLE hospedaje (
-    ubicacion VARCHAR2(32) NOT NULL,
-    fecha DATE NOT NULL,
-    nombre VARCHAR2(64) NOT NULL,
-    viaje_id DATE NOT NULL,
+    ubicacion VARCHAR2(128) NOT NULL,
+    nombre VARCHAR2(128) NOT NULL,
     valoracion NUMBER,
-    CONSTRAINT hospedaje_pk PRIMARY KEY (ubicacion, fecha),
-    CONSTRAINT hospedaje_fk FOREIGN KEY (viaje_id)
-        REFERENCES viaje(fecha_inicio) ON DELETE CASCADE
+    CONSTRAINT hospedaje_pk PRIMARY KEY (ubicacion)
 );
 
-CREATE TABLE habitacion_reservada (
-    numero NUMBER NOT NULL,
-    planta NUMBER NOT NULL,
-    cant_personas NUMBER DEFAULT 1,
-    ubicacion VARCHAR(32) NOT NULL,
-    fecha DATE NOT NULL,
-    CONSTRAINT habitacion_reservada_pk
-        PRIMARY KEY(ubicacion, fecha, numero),
-    CONSTRAINT habitacion_reservada_fk 
-        FOREIGN KEY(ubicacion, fecha)
-            REFERENCES hospedaje(ubicacion, fecha) 
-            ON DELETE CASCADE
+CREATE TABLE hospedaje_viaje (
+    hospedaje_id VARCHAR2(128) NOT NULL,
+    viaje_id DATE NOT NULL,
+    fecha DATE DEFAULT SYSDATE,
+    CONSTRAINT hospedaje_viaje_hospedaje_fk FOREIGN KEY(hospedaje_id)
+        REFERENCES hospedaje(ubicacion) ON DELETE CASCADE,
+    CONSTRAINT hospedaje_viaje_viaje_fk FOREIGN KEY(viaje_id)
+        REFERENCES viaje(fecha_inicio) ON DELETE CASCADE,
+    CONSTRAINT hospedaje_viaje_pk PRIMARY KEY(hospedaje_id, viaje_id)
 );
 
